@@ -1,0 +1,60 @@
+<header-card title="Manage Restrictions"></header-card>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" fxLayoutAlign="space-between center" fxLayoutGap="3em">
+      <mat-form-field fxFlex="100">
+        <mat-label>Code</mat-label>
+        <input type="text" matInput formControlName="code" />
+        <mat-error *ngIf="form.controls['code'].touched && form.controls['code'].invalid">
+          Restriction code is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="100">
+        <mat-label>Description</mat-label>
+        <input type="text" matInput formControlName="description" />
+        <mat-error *ngIf="form.get('description')?.touched && form.get('description')?.invalid">
+          Description type is required.
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="100" fxLayoutAlign="end center">
+        <button *ngIf="!(updateMode$|async)" [disabled]="form.invalid" mat-raised-button color="primary"
+          (click)="onSave()">
+          <icon-spinner *ngIf="isSubmitting$|async"></icon-spinner>
+          {{ (isSubmitting$|async) ? 'Saving...' : 'Save Restriction'}}
+        </button>
+
+        <ng-container *ngIf="(updateMode$|async)">
+          <button mat-raised-button type="button" (click)="onUpdate()" color="primary" [disabled]="form.invalid">
+            <icon-spinner *ngIf="isSubmitting$|async"></icon-spinner>
+            {{ (isSubmitting$|async) ? 'Updating...' : 'Update Restriction'}}
+          </button>
+          <button mat-button type="button" (click)="onCancel()" color="warn">
+            Cancel
+          </button>
+        </ng-container>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<ng-container *ngIf="restrictionState$|async as state" [ngSwitch]="state.dataState">
+  <mat-card *ngSwitchCase="DataState.LOADED" style="margin-top: 10px; padding: 10px">
+    <mat-card-content>
+      <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40" [columnMode]="'force'"
+        [footerHeight]="40">
+        <ngx-datatable-column [maxWidth]="150" name="Code"></ngx-datatable-column>
+        <ngx-datatable-column name="Description"></ngx-datatable-column>
+        <ngx-datatable-column [maxWidth]="150" name="Update">
+          <ng-template ngx-datatable-cell-template let-row="row">
+            <button mat-icon-button color="primary" (click)="onUpdateClicked(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>
+
+  <loading-spinner *ngSwitchCase="DataState.LOADING"></loading-spinner>
+</ng-container>

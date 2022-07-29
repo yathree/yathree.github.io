@@ -1,0 +1,19 @@
+<header-card title="Generate Students Control Number"></header-card>
+
+<mat-button-toggle-group color="primary">
+  <mat-button-toggle (click)="onClass('A')">CLASS A AND M</mat-button-toggle>
+  <mat-button-toggle (click)="onClass('B')">CLASS B AND B1</mat-button-toggle>
+  <mat-button-toggle (click)="onClass('D')">CLASS D AND D1</mat-button-toggle>
+  <mat-button-toggle (click)="onClass('C')">CLASS C AND C1</mat-button-toggle>
+  <mat-button-toggle (click)="onClass('E')">CLASS E AND G</mat-button-toggle>
+</mat-button-toggle-group>
+
+<app-class-a *ngIf="a"></app-class-a>
+
+<app-class-b *ngIf="b"></app-class-b>
+
+<app-class-c *ngIf="c"></app-class-c>
+
+<app-class-d *ngIf="d"></app-class-d>
+
+<app-class-e-g *ngIf="e"></app-class-e-g>

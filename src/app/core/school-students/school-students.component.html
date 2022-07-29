@@ -1,0 +1,14 @@
+<header-card title="School Students"></header-card>
+
+<mat-card style="margin-top: 10px; margin-bottom: 30px; padding: 10px">
+    <mat-card-content>
+        <ngx-datatable [rows]="students$|async" class="material" rowHeight="auto" [headerHeight]="40"
+            [columnMode]="'force'" [footerHeight]="40">
+            <ngx-datatable-column [maxWidth]="100" name="ID"></ngx-datatable-column>
+            <ngx-datatable-column name="Name"></ngx-datatable-column>
+            <ngx-datatable-column name="Phone"></ngx-datatable-column>
+            <ngx-datatable-column name="Blood Group"></ngx-datatable-column>
+            <ngx-datatable-column name="Comment"></ngx-datatable-column>
+        </ngx-datatable>
+    </mat-card-content>
+</mat-card>

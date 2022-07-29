@@ -1,0 +1,60 @@
+<header-card title="Payments Structures"></header-card>
+
+<mat-card *ngIf="(updateMode$|async)">
+    <mat-card-content>
+        <form [formGroup]="form" fxLayoutAlign="space-between center" fxLayoutGap="1em">
+            <mat-form-field fxFlex="100">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="100">
+                <mat-label>Amount</mat-label>
+                <input matInput formControlName="amount">
+                <mat-error *ngIf="form.controls['amount'].touched && form.controls['amount'].invalid">
+                    Amount is required field.
+                </mat-error>
+            </mat-form-field>
+            <div fxFlex="100" fxLayoutAlign="end" fxLayoutGap="10px">
+                <ng-container *ngIf="(updateMode$|async)">
+                    <button mat-raised-button type="button" (click)="onUpdate()" color="primary"
+                        [disabled]="form.invalid">
+                        <icon-spinner *ngIf="isUpdating$|async"></icon-spinner>
+                        {{(isUpdating$|async) ? 'Updating...' : 'Update Payment'}}
+                    </button>
+                    <button mat-button type="button" (click)="onCancel()" color="warn">
+                        Cancel
+                    </button>
+                </ng-container>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
+
+<ng-container *ngIf="(paymentState$ | async) as state" [ngSwitch]="state.dataState">
+    <ng-container *ngSwitchCase="DataState.LOADED">
+        <mat-card style="margin-top: 10px; padding: 10px">
+            <mat-card-content>
+                <ngx-datatable [rows]="state.data" [limit]="10" class="material" rowHeight="auto" [headerHeight]="40"
+                    [columnMode]="'force'" [footerHeight]="40">
+                    <ngx-datatable-column name="Name"></ngx-datatable-column>
+                    <ngx-datatable-column name="Amount">
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            {{value | currency:'Tsh '}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Update">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <button color="primary" mat-icon-button (click)="onUpdateClicked(row)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+
+    <div fxLayoutAlign="center" style="margin-top: 10vh;" *ngSwitchCase="DataState.LOADING">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-container>

@@ -1,0 +1,31 @@
+<app-result-form classId={{id}} name={{name}} api={{api}}></app-result-form>
+
+<header-card title="Pre Check Result"></header-card>
+
+
+<ng-container *ngIf="(students$|async) as state" [ngSwitch]="state.dataState">
+    <mat-card *ngSwitchCase="DataState.LOADED" style="margin-top: 10px; margin-bottom: 30px; padding: 10px">
+        <mat-card-content>
+            <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40"
+                [columnMode]="'force'" [footerHeight]="40">
+                <ngx-datatable-column name="Name"></ngx-datatable-column>
+                <ngx-datatable-column name="School Name"></ngx-datatable-column>
+                <ngx-datatable-column name="Class Name"></ngx-datatable-column>
+                <ngx-datatable-column name="Assistant Date">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{value|date:'dd-MM-yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Action">
+                    <ng-template ngx-datatable-cell-template let-data="row">
+                        <button mat-raised-button color="primary" style="margin-left: 15px;" (click)="onResult(data.classId,data.name)">
+                                Fill Marks
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </mat-card-content>
+    </mat-card>
+
+    <loading-spinner *ngSwitchCase="DataState.LOADING"></loading-spinner>
+</ng-container>

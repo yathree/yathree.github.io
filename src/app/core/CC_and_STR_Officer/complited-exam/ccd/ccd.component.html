@@ -1,0 +1,24 @@
+<mat-card fxLayoutGap="0.5rem" fxFlex="50" *ngFor="let ccinfo of Cc$|async">
+    <div  class="students">
+        <div class="student-info container" >
+            <strong style="color: red;">No: {{ccinfo['cn']}}</strong>
+            <div class="logo">
+                <img src="assets/images/smz_logo.png" alt="">
+            </div>
+            <h2>ZANZIBAR ROAD TRANSPORT AND SAFETY AUTHORITY</h2>
+            <h3>THE ROAD TRANSPORT ACT 2003</h3>
+            <h4>(Under Section 95, 113 and Regulation 9(1))</h4>
+            <h2>CERTIFICATE OF COMPETENCY TO DRIVE A MOTOR VEHICLE</h2>
+            <p>I here by certify that I have tested Mr / Mrs / Miss <strong>{{ccinfo['name']}} </strong> of (address) <strong>{{ccinfo['address']}}</strong></p>
+            <p>On motor vehicle with registration number <strong>. . . . . . . . . . . . . . . . . . . . .</strong>  and find him</p>
+            <p>compitent to drive motor vehicle of class <strong>{{ccinfo['className']}}</strong>  under the following conditions (if any).<strong></strong></p>
+            <p><br></p>
+            <p>BloodGroup <strong>{{ccinfo['bloodGroup']}}</strong> </p>
+
+            <p>...............................................</p>
+            <p><strong >Singnature</strong></p>
+            <p><span>.................................................</span></p>
+            <p><strong >Date</strong></p>
+        </div>
+</div>
+</mat-card>

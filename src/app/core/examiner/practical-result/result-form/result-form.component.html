@@ -1,0 +1,23 @@
+<mat-card class="space-b">
+    <mat-card-content>
+        <form autocomplete="off" [formGroup]="form" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <mat-form-field fxFlex="25">
+                <mat-label>Student Name</mat-label>
+                <input matInput value="{{name}}" readonly="true">
+            </mat-form-field>
+            <mat-form-field fxFlex="25">
+                <mat-label>Exam Marks</mat-label>
+                <input matInput type="number" max="50" min="0"  formControlName="marks">
+            </mat-form-field>
+            <mat-form-field fxFlex="25">
+                <mat-label>Exam Recomendation</mat-label>
+                <input matInput type="text" max="100" min="0"  formControlName="recommendation">
+            </mat-form-field>
+            <div fxFlex="20" fxLayoutAlign="end">
+                <button mat-flat-button type="button" (click)="onSave()"  color="primary">
+                    <mat-icon>save</mat-icon> Save
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

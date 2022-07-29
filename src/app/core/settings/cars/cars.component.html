@@ -1,0 +1,57 @@
+<header-card title="Manage Cars"></header-card>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" fxLayoutAlign="space-between center" fxLayoutGap="3em">
+      
+      <mat-form-field fxFlex="100">
+        <mat-label>Car Class</mat-label>
+        <mat-select formControlName="carClass">
+          <mat-option *ngFor="let island of classes" [value]="island.value">
+            {{ island.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="
+            form.controls['carClass'].touched && form.controls['carClass'].invalid
+          ">Class is required field.</mat-error>
+      </mat-form-field>
+      <div fxFlex="100" fxLayoutAlign="end" fxLayoutGap="10px">
+        <button mat-raised-button type="button" color="primary" (click)="addCar()" *ngIf="!(updateMode$|async)"
+          [disabled]="form.invalid">
+          Save Car
+        </button>
+        <ng-container *ngIf="(updateMode$|async)">
+          <button mat-raised-button type="button" (click)="onUpdate()" color="primary" [disabled]="form.invalid">
+            Update
+          </button>
+          <button mat-button type="button" (click)="onCancel()" color="warn">
+            Cancel
+          </button>
+        </ng-container>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+
+<ng-container *ngIf="(carState$ | async) as state" [ngSwitch]="state.dataState">
+    <ng-container *ngSwitchCase="DataState.LOADED">
+      <mat-card style="margin-top: 10px; padding: 10px">
+        <mat-card-content>
+          <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40" [columnMode]="'force'"
+            [footerHeight]="40">
+            <ngx-datatable-column name="carClass">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                {{value | titlecase}}
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  
+    <div fxLayoutAlign="center" style="margin-top: 10vh;" *ngSwitchCase="DataState.LOADING">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-container>

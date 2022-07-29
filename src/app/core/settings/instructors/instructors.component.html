@@ -1,0 +1,124 @@
+<mat-card class="title-card">
+  <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 class="card-title">Manage Intructors</h2>
+  </mat-card-content>
+</mat-card>
+
+<!-- Instructor Form -->
+<mat-card style="margin-bottom: 10px">
+  <mat-card-content>
+    <form [formGroup]="form" fxLayout="column">
+      <div fxLayoutAlign="space-between" fxLayout="row wrap" fxLayout.xs="column">
+        <mat-form-field fxFlex="15">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="fname" />
+          <mat-error *ngIf="
+              form.controls['fname'].touched && form.controls['fname'].invalid
+            ">
+            First name is required field.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="15">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lname" />
+          <mat-error *ngIf="
+              form.controls['lname'].touched && form.controls['lname'].invalid
+            ">
+            Last name is required field.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="10">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="Male">Male</mat-option>
+            <mat-option value="Female">Female</mat-option>
+          </mat-select>
+          <mat-error *ngIf="
+              form.controls['gender'].touched && form.controls['gender'].invalid
+            ">
+            Gender is required field.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="12">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phone" />
+          <mat-error *ngIf="
+              form.controls['phone'].touched && form.controls['phone'].invalid
+            ">
+            Phone number is required field.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="19">
+          <mat-label>E-mail Address</mat-label>
+          <input matInput formControlName="email" />
+          <mat-error *ngIf="
+              form.controls['email'].touched && form.controls['email'].invalid
+            ">
+            Email Address is required field.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="19">
+          <mat-label>School</mat-label>
+          <mat-select formControlName="school">
+            <ng-container *ngIf="schools$ | async as schools">
+              <mat-option *ngFor="let school of schools" [value]="school">{{
+                school.name
+                }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxLayoutAlign="end" fxLayoutGap="10px">
+        <button *ngIf="!(updateMode$ | async)" mat-raised-button type="button" color="primary" (click)="onSave()"
+          [disabled]="form.invalid">
+          <icon-spinner *ngIf="isSubmitting$ | async"></icon-spinner>
+          <mat-icon *ngIf="!(isSubmitting$ | async)">save</mat-icon>
+          {{ (isSubmitting$ | async) ? "Saving..." : "Save" }}
+        </button>
+        <ng-container *ngIf="updateMode$ | async">
+          <button mat-raised-button type="button" (click)="onUpdate()" color="primary" [disabled]="form.invalid">
+            <icon-spinner *ngIf="isSubmitting$ | async"></icon-spinner>
+            {{ (isSubmitting$ | async) ? "Updating..." : "Update" }}
+          </button>
+          <button mat-button type="button" (click)="onCancel()" color="warn">
+            Cancel
+          </button>
+        </ng-container>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- Instructors List -->
+<ng-container *ngIf="instructorState$ | async as state" [ngSwitch]="state.dataState">
+  <mat-card *ngSwitchCase="DatState.LOADED" style="margin-top: 10px; padding: 10px">
+    <mat-card-content>
+      <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40" [columnMode]="'force'"
+        [footerHeight]="40">
+        <ngx-datatable-column name="Name">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.fname + " " + row.lname }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Gender" [width]="40"></ngx-datatable-column>
+        <ngx-datatable-column name="Phone"></ngx-datatable-column>
+        <ngx-datatable-column name="Email"></ngx-datatable-column>
+        <ngx-datatable-column name="School" prop="school.name"></ngx-datatable-column>
+        <ngx-datatable-column name="Update" [width]="30">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <button color="primary" mat-icon-button (click)="onUpdateClicked(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>
+
+  <loading-spinner *ngSwitchCase="DatState.LOADING"></loading-spinner>
+</ng-container>

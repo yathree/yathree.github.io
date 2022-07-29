@@ -1,0 +1,39 @@
+<header-card title="Payments history"></header-card>
+
+<mat-card>
+    <div>
+        <form fxLayoutAlign="end center" fxLayoutGap="1rem" autocomplete="off">
+            <mat-form-field fxFlex="10">
+                <mat-label>Full Name</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field fxFlex="10">
+                <mat-label>ID</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field fxFlex="10">
+                <mat-label>Phone Number</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field fxFlex="10">
+                <mat-label>Control Number</mat-label>
+                <input matInput>
+            </mat-form-field>
+
+            <button type="button" color="primary" mat-flat-button>
+                <mat-icon>search</mat-icon> Filter
+            </button>
+        </form>
+    </div>
+    <mat-card-content>
+        <ngx-datatable [rows]="students$|async" [limit]="10" class="material" rowHeight="auto" [headerHeight]="40" [columnMode]="'force'"
+            [footerHeight]="40">
+            <ngx-datatable-column name="Name"></ngx-datatable-column>
+            <ngx-datatable-column name="ID Number"></ngx-datatable-column>
+            <ngx-datatable-column name="Phone"></ngx-datatable-column>
+            <ngx-datatable-column name="control Number"></ngx-datatable-column>
+            <ngx-datatable-column name="amount Paid"></ngx-datatable-column>
+            <ngx-datatable-column name="Status"></ngx-datatable-column>
+        </ngx-datatable>
+    </mat-card-content>
+</mat-card>

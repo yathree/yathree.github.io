@@ -1,0 +1,25 @@
+<header-card title="Complite Exam Students"></header-card>
+
+<ng-container *ngIf="(students$|async) as state" [ngSwitch]="state.dataState">
+    <mat-card *ngSwitchCase="DataState.LOADED" style="margin-top: 10px; margin-bottom: 30px; padding: 10px">
+        <mat-card-content>
+            <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40"
+                [columnMode]="'force'" [footerHeight]="40">
+                <ngx-datatable-column name="Name"></ngx-datatable-column>
+                <ngx-datatable-column name="Phone"></ngx-datatable-column>
+                <ngx-datatable-column name="ID Number"></ngx-datatable-column>
+                <ngx-datatable-column name="Class Name"></ngx-datatable-column>
+                <ngx-datatable-column name="Pre Marks"></ngx-datatable-column>
+                <ngx-datatable-column name="Yard Marks"></ngx-datatable-column>
+                <ngx-datatable-column name="Road Marks"></ngx-datatable-column>
+                <ngx-datatable-column  name="Action">
+                    <ng-template ngx-datatable-cell-template let-student="row">
+                        <a mat-raised-button color="primary"  [routerLink]="student.classId+' '+student.cn">Print Certificates</a>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </mat-card-content>
+    </mat-card>
+
+    <loading-spinner *ngSwitchCase="DataState.LOADING"></loading-spinner>
+</ng-container>

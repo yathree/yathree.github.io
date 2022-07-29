@@ -1,0 +1,73 @@
+<header-card title="Manage Hospitals"></header-card>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" fxLayoutAlign="space-between center" fxLayoutGap="3em">
+      <mat-form-field fxFlex="100">
+        <mat-label>Hospital Name</mat-label>
+        <input matInput formControlName="name" placeholder="Example: Mmazi mmoja" />
+        <mat-error *ngIf="form.controls['name'].touched && form.controls['name'].invalid">Hospital name is required
+          field.</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="100">
+        <mat-label>Select Location</mat-label>
+        <mat-select formControlName="location">
+          <mat-option *ngFor="let island of islands" [value]="island.value">
+            {{ island.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="
+            form.controls['location'].touched && form.controls['location'].invalid
+          ">Location is required field.</mat-error>
+      </mat-form-field>
+      <div fxFlex="100" fxLayoutAlign="end" fxLayoutGap="10px">
+        <button mat-raised-button type="button" color="primary" (click)="addHospital()" *ngIf="!(updateMode$|async)"
+          [disabled]="form.invalid">
+          Save Hospital
+        </button>
+        <ng-container *ngIf="(updateMode$|async)">
+          <button mat-raised-button type="button" (click)="onUpdate()" color="primary" [disabled]="form.invalid">
+            Update Hospital
+          </button>
+          <button mat-button type="button" (click)="onCancel()" color="warn">
+            Cancel
+          </button>
+        </ng-container>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<ng-container *ngIf="(hospitalState$ | async) as state" [ngSwitch]="state.dataState">
+  <ng-container *ngSwitchCase="DataState.LOADED">
+    <mat-card style="margin-top: 10px; padding: 10px">
+      <mat-card-content>
+        <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40" [columnMode]="'force'"
+          [footerHeight]="40">
+          <ngx-datatable-column name="Name">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{value | titlecase}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Location">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{value | titlecase}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Status"></ngx-datatable-column>
+          <ngx-datatable-column name="Actions">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <button color="primary" mat-icon-button (click)="onUpdateClicked(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+
+  <div fxLayoutAlign="center" style="margin-top: 10vh;" *ngSwitchCase="DataState.LOADING">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-container>

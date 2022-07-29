@@ -1,0 +1,21 @@
+<header-card title="Theory Examination Sessions"></header-card>
+<exam-session-form></exam-session-form>
+
+<mat-card>
+    <mat-card-content>
+        <ngx-datatable [rows]="sessions$|async" class="material" rowHeight="auto" [headerHeight]="40"
+            [columnMode]="'force'" [footerHeight]="40">
+            <ngx-datatable-column name="Name"></ngx-datatable-column>
+            <ngx-datatable-column name="Start Time">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{dateTime(value)|date:'h:mm a'}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Capacity">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value ? value: 0}}
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </mat-card-content>
+</mat-card>

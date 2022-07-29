@@ -1,0 +1,63 @@
+.outer-box {
+    padding-left: 2rem;
+    padding-bottom: 2rem;
+    background-color: #c93328;
+
+    .inner-box {
+        min-height: 280px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .logo {
+            margin: 0 auto;
+            width: 80px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .headers {
+            text-align: center;
+            h5 {
+                font-size: 10px;
+                font-weight: bold;
+                margin: 0;
+            }
+
+            p {
+                font-size: 10px;
+                line-height: 12px;
+                margin: 0;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .serial-no {
+            margin-left: auto;
+            font-size: 10px;
+
+            
+        }
+    }
+}
+
+table {
+    border: 1px solid #999;
+    border-collapse: collapse;
+}
+
+table th {
+    padding: 5px;
+    font-size: 11px;
+    line-height: 12px;
+    text-align: center;
+}
+

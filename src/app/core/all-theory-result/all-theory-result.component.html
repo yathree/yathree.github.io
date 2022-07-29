@@ -1,0 +1,19 @@
+<header-card title="Theory Examination Result"></header-card>
+
+<mat-card>
+    <mat-card-content>
+        <ngx-datatable [rows]="sessions$|async" class="material" rowHeight="auto" [headerHeight]="40"
+            [columnMode]="'force'" [footerHeight]="40">
+            <ngx-datatable-column name="Student Name"></ngx-datatable-column>
+            <ngx-datatable-column name="Class Name"></ngx-datatable-column>
+            <ngx-datatable-column name="Phone">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value ? value: 0}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Marks1"></ngx-datatable-column>
+            <ngx-datatable-column name="Marks2"></ngx-datatable-column>
+            <ngx-datatable-column name="Status"></ngx-datatable-column>
+        </ngx-datatable>
+    </mat-card-content>
+</mat-card>

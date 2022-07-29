@@ -1,0 +1,65 @@
+img {
+    width: 80px;
+}
+
+.student-info p {
+    font-size: 12px;
+    border-bottom: 1px dotted #999;
+}
+
+.middle {
+    margin-left: 3rem;
+}
+
+.student-info {
+    padding: 0 .75rem;
+    margin-top: 1.5rem;
+}
+
+.circle {
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid #999;
+    margin-left: auto;
+    border-radius: 50%;
+    font-size: 10px;
+    box-sizing: border-box;
+    line-height: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.imageDp {
+    width: 100px;
+    height: 120px;
+    margin: 0 auto;
+    border: 1px solid #777;
+}
+
+h5 {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 5px;
+    color: #c93328;
+}
+
+.conditions {
+    padding: 0 .75rem;
+}
+
+.conditions p {
+    font-size: 10px;
+    text-align: center;
+    font-style: italic;
+    line-height: 10px;
+}
+
+ol {padding: 0;}
+ol li {
+    font-size: 10px;
+    line-height: 15px;
+    padding-left: 0;
+}

@@ -1,0 +1,29 @@
+<header-card title="Manage Staffs"> </header-card>
+<staff-form></staff-form>
+
+<ng-container *ngIf="staffState$|async as state" [ngSwitch]="state.dataState">
+  <mat-card *ngSwitchCase="DatState.LOADED" style="margin-top: 10px; padding: 10px">
+    <mat-card-content>
+      <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40" [columnMode]="'force'"
+        [footerHeight]="40">
+        <ngx-datatable-column name="Name">
+          <ng-template ngx-datatable-cell-template let-staff="row">
+            <span>{{staff.fname}} {{staff.mname}} {{staff.lname}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Gender"></ngx-datatable-column>
+        <ngx-datatable-column name="Phone"></ngx-datatable-column>
+        <ngx-datatable-column name="Role"></ngx-datatable-column>
+        <ngx-datatable-column name="Update">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <button (click)="onUpdateClicked(row)" color="primary" mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>
+
+  <loading-spinner *ngSwitchCase="DatState.LOADING"></loading-spinner>
+</ng-container>

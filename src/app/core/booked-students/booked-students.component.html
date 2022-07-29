@@ -1,0 +1,42 @@
+<!-- <header-card title="Booked Students"></header-card> -->
+<mat-card>
+  <mat-card-content>
+    <div fxLayoutAlign="space-between center">
+      <div fxLayoutGap="1rem">
+        <mat-form-field>
+          <mat-label>Choose a date</mat-label>
+          <input type="date" [formControl]="dateCtrl" matInput>
+        </mat-form-field>
+        <button mat-flat-button color="primary" (click)="onSearch()" [disabled]="dateCtrl.invalid">Search</button>
+      </div>
+      <button mat-flat-button [useExistingCss]="true" color="warn" printTitle="Booked Students"
+        printSectionId="print-section" ngxPrint>Print</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card style="margin-top: 10px; margin-bottom: 30px; padding: 10px">
+  <mat-card-content>
+    <div id="print-section">
+      <h2>Booked Students</h2>
+      <ngx-datatable [rows]="students$|async" class="material" rowHeight="auto" [headerHeight]="40"
+        [columnMode]="'force'" [footerHeight]="40">
+        <ngx-datatable-column [maxWidth]="100" name="ID">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Student Name"></ngx-datatable-column>
+        <ngx-datatable-column name="Booked Date"></ngx-datatable-column>
+        <ngx-datatable-column name="Session">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.sessions.name}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Exam Time">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{dateTime(row.sessions.startTime)|date:'h:mm a'}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Status"></ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </mat-card-content>
+</mat-card>

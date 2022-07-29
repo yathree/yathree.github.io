@@ -1,0 +1,13 @@
+mat-nav-list {
+  mat-list-item {
+    color: #4e515e;
+  }
+  mat-icon {
+    margin-right: 20px;
+    margin-left: 10px;
+  }
+
+  mat-list-item.active {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}

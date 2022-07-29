@@ -1,0 +1,35 @@
+<header-card title="{{title}}"></header-card>
+
+<!-- ADMIN: Dashboard analysis -->
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px" *ngIf="isAdmin">
+    <mat-card fxFlex="30" fxFlex.lt-md="100" class="mat-warn">
+        <mat-card-content>
+            <p>Registered Schools</p>
+            <ng-container *ngIf="schools$|async as state" [ngSwitch]="state.dataState">
+                <span *ngSwitchCase="'LOADING'">loading...</span>
+                <h1 *ngSwitchCase="'LOADED'">{{state.data.length}}</h1>
+            </ng-container>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex="30" fxFlex.lt-md="100">
+        <mat-card-content>
+            <p>Registered Students</p>
+            <h1>{{'0'}}</h1>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex="30" fxFlex.lt-md="100">
+        <mat-card-content>
+            <p>School's Instructors</p>
+            <h1>{{(instructors$|async)?.length}}</h1>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex="30" fxFlex.lt-md="100">
+        <mat-card-content>
+            <p>System Users</p>
+            <h1>0</h1>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<!-- DOCTOR: Paid students for checkup -->
+<paid-students *ngIf="userRole === ROLE.doctor"></paid-students>

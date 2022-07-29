@@ -1,0 +1,33 @@
+<header-card title="Student Booking & Confirmation"></header-card>
+
+<app-booking-form id={{id}} name={{name}}></app-booking-form>
+
+<ng-container *ngIf="(students$|async) as state" [ngSwitch]="state.dataState">
+    <mat-card *ngSwitchCase="DataState.LOADED" style="margin-top: 10px; margin-bottom: 30px; padding: 10px">
+        <mat-card-content>
+            <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40"
+                [columnMode]="'force'" [footerHeight]="40">
+                <ngx-datatable-column name="Name"></ngx-datatable-column>
+                <ngx-datatable-column name="School Name"></ngx-datatable-column>
+                <ngx-datatable-column [maxWidth]="120" name="Class Name"></ngx-datatable-column>
+                <ngx-datatable-column [maxWidth]="130" name="Booked Date">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{value|date:'dd-MM-yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [maxWidth]="130" name="Practical Day"></ngx-datatable-column>
+                <ngx-datatable-column [maxWidth]="100" name="Status"></ngx-datatable-column>
+                <ngx-datatable-column  name="Action">
+                    <ng-template ngx-datatable-cell-template let-student="row">
+                        <button mat-raised-button color="primary" (click)="onConfirm(student.id,student.name)"
+                                style="margin-left: 15px;">
+                                Confirm Boking
+                            </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </mat-card-content>
+    </mat-card>
+
+    <loading-spinner *ngSwitchCase="DataState.LOADING"></loading-spinner>
+</ng-container>

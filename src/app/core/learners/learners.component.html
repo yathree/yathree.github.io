@@ -1,0 +1,32 @@
+<header-card title="Student's Learner"></header-card>
+
+<mat-card>
+    <mat-card-content>
+        <ngx-datatable [rows]="learners$|async" class="material" rowHeight="auto" [headerHeight]="40"
+            [columnMode]="'force'" [footerHeight]="40">
+            <ngx-datatable-column [maxWidth]="100" name="ID"></ngx-datatable-column>
+            <ngx-datatable-column name="Name" [maxWidth]="200"></ngx-datatable-column>
+            <ngx-datatable-column name="DOB" [maxWidth]="180"></ngx-datatable-column>
+            <ngx-datatable-column name="Class" prop="className" [maxWidth]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Issue Date" [maxWidth]="180"></ngx-datatable-column>
+            <ngx-datatable-column name="Expiry Date" [maxWidth]="180"></ngx-datatable-column>
+            <ngx-datatable-column name="status" [maxWidth]="180"></ngx-datatable-column>
+            <ngx-datatable-column name="Actions" >
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <mat-label *ngIf="row.status!='USED'">
+                    <a mat-raised-button color="primary" *ngIf="row.status!='REVOKE'" [routerLink]="row.id">Preview</a>
+                    <button *ngIf="row.status!='REVOKE'" mat-raised-button color="primary" style="margin-left: 15px;" (click)="revokeLearner(row.id,'REVOKE')">
+                        Revoke
+                    </button>
+                    <button mat-raised-button color="warn" *ngIf="row.status=='REVOKE'" style="margin-left: 15px;" (click)="revokeLearner(row.id,'ACTIVE')">
+                        ACTIVATE
+                    </button>
+                    <button *ngIf="row.status=='EXPIRE'" mat-raised-button color="primary" style="margin-left: 15px;" (click)="renewLearner(row.classId,row.id)">
+                        Renew
+                    </button>
+                </mat-label>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,31 @@
+
+<ng-container *ngIf="(students$|async) as state" [ngSwitch]="state.dataState">
+    <mat-card *ngSwitchCase="DataState.LOADED" style="margin-top: 10px; margin-bottom: 30px; padding: 10px">
+        <!-- class A -->
+        <mat-card-content>
+            <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40"
+                [columnMode]="'force'" [footerHeight]="40">
+                <ngx-datatable-column name="Name"></ngx-datatable-column>
+                <ngx-datatable-column  name="DOB">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{value|date:'dd-MM-yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Gender"></ngx-datatable-column>
+                <ngx-datatable-column name="Phone"></ngx-datatable-column>
+                <ngx-datatable-column name="Address"></ngx-datatable-column>
+                <ngx-datatable-column name="Class Name"></ngx-datatable-column>
+                <ngx-datatable-column  name="Action">
+                    <ng-template ngx-datatable-cell-template let-student="row">
+                        <button mat-raised-button color="primary" (click)="onControl(student.classId,student.className)"
+                                style="margin-left: 15px;">
+                                Control Number
+                            </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </mat-card-content>
+    </mat-card>
+
+    <loading-spinner *ngSwitchCase="DataState.LOADING"></loading-spinner>
+</ng-container>

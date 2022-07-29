@@ -1,0 +1,28 @@
+<mat-card class="title-card">
+  <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 class="card-title">Manage User Account</h2>
+  </mat-card-content>
+</mat-card>
+
+<mat-card style="margin-top: 10px; padding: 10px">
+  <mat-card-content>
+    <ngx-datatable [rows]="flatUsers$ |async" class="material" rowHeight="auto" [headerHeight]="40"
+      [columnMode]="'force'" [footerHeight]="40">
+      <ngx-datatable-column name="Username"></ngx-datatable-column>
+      <ngx-datatable-column name="Role"></ngx-datatable-column>
+      <ngx-datatable-column name="Status" prop="isEnabled">
+        <ng-template let-value='value' ngx-datatable-cell-template>
+          {{value ? 'Active' : 'Blocked'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Actions">
+        <ng-template let-user='row' ngx-datatable-cell-template>
+          <button [title]="user.isEnabled ? 'Block user' : 'Unblock user'" class="action" (click)="onBlockOrUnblock(user)" mat-icon-button [color]="user.isEnabled ? 'warn' : 'primary'">
+            <mat-icon *ngIf="user.isEnabled">block</mat-icon>
+            <mat-icon *ngIf="!user.isEnabled">check_circle</mat-icon>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

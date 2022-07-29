@@ -1,0 +1,68 @@
+<header-card title="Medical Checkup"></header-card>
+
+<mat-card>
+    <mat-card-content>
+        <div fxLayoutAlign="space-between center" fxLayoutGap="2em">
+            <mat-form-field fxFlex="50">
+                <mat-label>Type ZANID or NIDA to search</mat-label>
+                <input matInput [formControl]="searchControl">
+            </mat-form-field>
+            <div fxLayoutAlign="end" fxFlex="40">
+                <button mat-raised-button (click)="onSearch()" color="primary">
+                    <mat-icon>search</mat-icon> Search
+                </button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<ng-container *ngIf="(students$|async) && (students$|async).data as student">
+    <student-info [student]="student"></student-info>
+    <mat-card style="margin-top: 10px;">
+        <mat-card-header>
+            <mat-card-subtitle class="ml-0">Please fill student's medical checkup</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form fxLayout="column" [formGroup]="form">
+                <div fxLayoutAlign="space-between center" fxLayoutGap="2em">
+                    <mat-form-field fxFlex="100">
+                        <mat-label>Blood Group</mat-label>
+                        <mat-select formControlName="bloodGroup">
+                            <mat-option *ngFor="let group of bloodGroups" [value]="group">{{group}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.controls['bloodGroup'].touched && form.controls['bloodGroup'].invalid">
+                            Please select blood group
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="100">
+                        <mat-label>Restrictions</mat-label>
+                        <mat-select multiple formControlName="restrictions">
+                            <mat-option *ngFor="let item of restrictions$|async" [value]="item">
+                                {{item.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="100">
+                        <mat-label>Comment</mat-label>
+                        <mat-select formControlName="comment">
+                            <mat-option value="FIT">Fit for driving</mat-option>
+                            <mat-option value="UNFIT">Unfit for driving</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.controls['comment'].touched && form.controls['comment'].invalid">
+                            Please choose a comment
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-form-field>
+                    <mat-label>Other Description</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                </mat-form-field>
+                <div fxLayoutAlign="end">
+                    <button mat-raised-button color="primary" (click)="onSubmit(student)">Submit</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</ng-container>
+
+<div style="margin-top: 20px;" *ngIf="(students$|async)?.loading">Getting student, please wait...</div>

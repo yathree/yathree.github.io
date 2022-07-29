@@ -1,0 +1,20 @@
+<header-card title="Cars Registration For Practical Exam"></header-card>
+
+<app-cars-form></app-cars-form>
+
+<ng-container *ngIf="(students$|async) as state" [ngSwitch]="state.dataState">
+    <mat-card *ngSwitchCase="DataState.LOADED" style="margin-top: 10px; margin-bottom: 30px; padding: 10px">
+        <mat-card-content>
+            <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40"
+                [columnMode]="'force'" [footerHeight]="40">
+                <ngx-datatable-column name="Name"></ngx-datatable-column>
+                <ngx-datatable-column name="Car Class"></ngx-datatable-column>
+                <ngx-datatable-column name="Plate Number"></ngx-datatable-column>
+                <ngx-datatable-column name="Practical Day"></ngx-datatable-column>
+                <ngx-datatable-column name="Status"></ngx-datatable-column>
+            </ngx-datatable>
+        </mat-card-content>
+    </mat-card>
+
+    <loading-spinner *ngSwitchCase="DataState.LOADING"></loading-spinner>
+</ng-container>

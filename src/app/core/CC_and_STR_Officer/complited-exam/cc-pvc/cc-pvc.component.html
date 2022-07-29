@@ -1,0 +1,8 @@
+<mat-button-toggle-group color="primary">
+    <mat-button-toggle (click)="onClass('S R D T')">S R D T</mat-button-toggle>
+    <mat-button-toggle (click)="onClass('C C D M V')">C C D M V</mat-button-toggle>
+</mat-button-toggle-group>
+
+<app-srd *ngIf="srd" class="card" id={{id}} cn={{cn}}></app-srd>
+
+<app-ccd *ngIf="cc" class="card" id={{id}} cn={{cn}}></app-ccd>

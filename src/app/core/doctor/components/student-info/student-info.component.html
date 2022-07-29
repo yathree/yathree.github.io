@@ -1,0 +1,22 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-subtitle class="ml-0">Student's personal information.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <table>
+            <tr>
+                <th>Full Name</th>
+                <th *ngIf="student['idtype'] == 'ZANID'">{{student['idtype']}}</th>
+                <th *ngIf="student['idtype'] == 'NIDA'">{{student['idtype']}}</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+            </tr>
+            <tr>
+                <td>{{student['name']}}</td>
+                <td>{{student.idNumber}}</td>
+                <td>{{student.phone}}</td>
+                <td>{{student.address}}</td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>

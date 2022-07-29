@@ -1,0 +1,38 @@
+<div class="wrapper" fxLayout="row" fxLayoutAlign="space-around start">
+  <mat-card fxFlex="30" fxFlex.lt-sm="100" fxFlex.sm="60" fxFlex.gt-lg="22">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <img src="../../assets/images/logo.jpg" alt="" style="width: 50px" />
+      <h2>{{ logoTitle }} LOGIN</h2>
+    </div>
+    <mat-card-content>
+      <form fxLayout="column" [formGroup]="form" autocomplete="off">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input type="text" matInput formControlName="username" />
+          <mat-error *ngIf="controls['username'].hasError('required')">
+            Username is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+          <mat-error *ngIf="controls['password'].hasError('required')">
+            Password is required.
+          </mat-error>
+          <mat-error *ngIf="controls['password'].hasError('minlength')">
+            Password should be at least 5 characters.
+          </mat-error>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onLogin()"
+          [disabled]="form.invalid"
+        >
+          <icon-spinner *ngIf="loading$ | async"></icon-spinner>
+          {{ (loading$ | async) ? "Please wait" : "Login" }}
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

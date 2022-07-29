@@ -1,0 +1,32 @@
+.material {
+  box-shadow: none !important;
+}
+
+.datatable-header-cell {
+  background: #f6f8ff !important;
+  vertical-align: bottom;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0.6em 1.1em !important;
+  font-size: 14px !important;
+}
+
+.datatable-body-cell {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 2px 16px !important;
+  vertical-align: bottom !important;
+  display: flex !important;
+  align-items: center;
+}
+
+.datatable-footer {
+  color: #ededed;
+  margin-top: -5px;
+  border-top-width: 0 !important;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.05);
+
+  .page-count {
+    line-height: 40px !important;
+    height: 40px !important;
+  }
+}

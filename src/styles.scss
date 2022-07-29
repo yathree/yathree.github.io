@@ -1,0 +1,110 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+@import "~@swimlane/ngx-datatable/index.css";
+@import "~@swimlane/ngx-datatable/themes/material.scss";
+@import "~@swimlane/ngx-datatable/assets/icons.css";
+@import "./assets/css/custom-palettes.scss";
+@import "./assets/css/datatable.scss";
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$zodlap-fe-primary: mat.define-palette($blue-palette, 200);
+$zodlap-fe-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$zodlap-fe-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$zodlap-fe-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $zodlap-fe-primary,
+      accent: $zodlap-fe-accent,
+      warn: $zodlap-fe-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($zodlap-fe-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 18px;
+}
+
+.material {
+  box-shadow: none !important;
+}
+
+.m-0 {
+  margin: 0 !important;
+}
+
+.p-0 {
+  padding: 0 !important;
+}
+
+button {
+  box-shadow: none !important;
+}
+
+.title-card {
+  margin-bottom: 10px;
+  padding: 10px 15px !important;
+}
+
+.card-title {
+  margin: 0 !important;
+  font-weight: 400;
+  font-size: 18px !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+mat-card {
+  box-shadow: none !important;
+  border: 1px solid #c3d3d6;
+}
+
+button.action {
+  line-height: 30px;
+}
+
+.mat-card-header-text {
+  margin-left: 0 !important;
+}
+
+mat-spinner svg {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.space-b {
+  margin-bottom: 10px;
+}
+
+.action-btn {
+  line-height: 25px !important;
+}

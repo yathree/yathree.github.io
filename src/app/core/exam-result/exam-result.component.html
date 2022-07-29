@@ -1,0 +1,24 @@
+<header-card title="Theory Examination Result"></header-card>
+<app-exam-result-form classId={{id}} name={{name}} ></app-exam-result-form>
+
+<mat-card>
+    <mat-card-content>
+        <ngx-datatable [rows]="sessions$|async" class="material" rowHeight="auto" [headerHeight]="40"
+            [columnMode]="'force'" [footerHeight]="40">
+            <ngx-datatable-column name="Student Name"></ngx-datatable-column>
+            <ngx-datatable-column name="Class Name"></ngx-datatable-column>
+            <ngx-datatable-column name="Phone">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value ? value: 0}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Action">
+                <ng-template ngx-datatable-cell-template let-sessions="row">
+                    <button mat-raised-button color="primary" style="margin-left: 15px;" (click)="filMarck(sessions.classId,sessions.studentName)">
+                            Fill Marks
+                    </button>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </mat-card-content>
+</mat-card>

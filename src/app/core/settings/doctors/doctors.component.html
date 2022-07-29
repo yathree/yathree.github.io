@@ -1,0 +1,35 @@
+<mat-card class="title-card">
+  <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 class="card-title">Manage Doctors</h2>
+  </mat-card-content>
+</mat-card>
+
+<doctor-form></doctor-form>
+
+<ng-container *ngIf="doctorState$|async as state" [ngSwitch]="state.dataState">
+  <ng-container *ngSwitchCase="DataState.LOADED">
+    <mat-card style="margin-top: 10px; padding: 10px">
+      <mat-card-content>
+        <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40" [columnMode]="'force'"
+          [footerHeight]="40">
+          <ngx-datatable-column name="Name" [width]="50"></ngx-datatable-column>
+          <ngx-datatable-column name="Gender" [width]="20"></ngx-datatable-column>
+          <ngx-datatable-column name="Phone" [width]="30"></ngx-datatable-column>
+          <ngx-datatable-column name="Hospital">
+            <ng-template ngx-datatable-cell-template let-row="row">
+              <span>{{row.hospital?.name}} {{row.hospital?.location}}</span>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Actions" [width]="20">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <button color="primary" mat-icon-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+  <div *ngSwitchCase="DataState.LOADING" style="margin-top: 10px;">Loading...</div>
+</ng-container>

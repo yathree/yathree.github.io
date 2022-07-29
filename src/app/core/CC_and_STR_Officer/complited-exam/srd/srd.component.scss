@@ -1,0 +1,55 @@
+
+
+.student-info p {
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.students{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+h2,h4,h3{
+    text-align: center;
+    font-weight: bold;
+}
+.conditions p {
+    font-size: 10px;
+    text-align: center;
+    font-style: italic;
+    line-height: 10px;
+}
+
+.logo {
+    margin: 0 auto;
+    width: 80px;
+
+    img {
+        width: 100%;
+    }
+}
+
+table {
+    border: 1px solid #999;
+    border-collapse: collapse;
+}
+
+table th {
+    padding: 5px;
+    font-size: 15px;
+    line-height: 12px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+table td {
+    padding: 5px;
+    font-size: 15px;
+    line-height: 12px;
+    text-align: left;
+    margin-top: 10px;
+}
+li{
+    margin-top: 10px;
+}

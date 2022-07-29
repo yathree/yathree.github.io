@@ -1,0 +1,44 @@
+<header-card title="Row Students"></header-card>
+
+<ng-container *ngIf="(students$|async) as state" [ngSwitch]="state.dataState">
+    <mat-card *ngSwitchCase="DataState.LOADED" style="margin-top: 10px; margin-bottom: 30px; padding: 10px">
+        <mat-card-content>
+            <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40"
+                [columnMode]="'force'" [footerHeight]="40">
+                <ngx-datatable-column name="Name"></ngx-datatable-column>
+                <ngx-datatable-column [maxWidth]="130" name="DOB">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{value|date:'dd-MM-yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [maxWidth]="100" name="Gender"></ngx-datatable-column>
+                <ngx-datatable-column [maxWidth]="120" name="Phone"></ngx-datatable-column>
+                <ngx-datatable-column name="Address"></ngx-datatable-column>
+                <ngx-datatable-column name="Action">
+                    <ng-template ngx-datatable-cell-template let-student="row">
+                        <div *ngIf="editMode" fxLayoutAlign="start center">
+                            <mat-form-field fxFlex="40">
+                                <mat-select [formControl]="classIdCtrl">
+                                    <mat-option *ngFor="let item of drivingClasses$|async" [value]="item.id">
+                                        {{item.className}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button mat-icon-button color="primary" (click)="onAssignClass(student.id+'')"
+                                style="margin-left: 15px;">
+                                <mat-icon>check</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" (click)="cancelEditMode()">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </div>
+                        <button mat-icon-button color="primary" *ngIf="!editMode" (click)="onEditAttempt()">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </mat-card-content>
+    </mat-card>
+
+    <loading-spinner *ngSwitchCase="DataState.LOADING"></loading-spinner>
+</ng-container>

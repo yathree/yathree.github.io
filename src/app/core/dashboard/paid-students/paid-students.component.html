@@ -1,0 +1,21 @@
+<mat-card style="margin-top: 10px; margin-bottom: 30px; padding: 10px">
+    <mat-card-content>
+        <ngx-datatable [rows]="students$|async" class="material" rowHeight="auto" [headerHeight]="40"
+            [columnMode]="'force'" [footerHeight]="40">
+            <ngx-datatable-column name="Name"></ngx-datatable-column>
+            <ngx-datatable-column [maxWidth]="150" name="Phone"></ngx-datatable-column>
+            <ngx-datatable-column [maxWidth]="120" name="Gender"></ngx-datatable-column>
+            <ngx-datatable-column [maxWidth]="150" name="DOB"></ngx-datatable-column>
+            <ngx-datatable-column name="Address"></ngx-datatable-column>
+            <ngx-datatable-column [maxWidth]="120" name="ID Type" prop="idtype"></ngx-datatable-column>
+            <ngx-datatable-column name="ID Number"></ngx-datatable-column>
+            <ngx-datatable-column name="Actions">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button mat-raised-button color="primary" (click)="onSelect(row)" class="action-btn">
+                        select
+                    </button>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </mat-card-content>
+</mat-card>

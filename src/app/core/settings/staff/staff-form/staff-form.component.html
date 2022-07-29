@@ -1,0 +1,84 @@
+<mat-card style="margin-bottom: 10px;">
+    <mat-card-content>
+        <form [formGroup]="form" fxLayout="column">
+            <div fxLayout="row wrap" fxLayoutGap="15px" fxLayout.xs="column">
+                <mat-form-field fxFlex="20">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="fname" />
+                    <mat-error *ngIf="form.controls['fname'].touched && form.controls['fname'].invalid">
+                        First name is required field.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="20">
+                    <mat-label>Middle Name</mat-label>
+                    <input matInput formControlName="mname" />
+                    <mat-error *ngIf="form.controls['mname'].touched && form.controls['mname'].invalid">
+                        Middle name is required field.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="20">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lname" />
+                    <mat-error *ngIf="form.controls['lname'].touched && form.controls['lname'].invalid">
+                        Last name is required field.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="20">
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender">
+                        <mat-option value="Male">Male</mat-option>
+                        <mat-option value="Female">Female</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls['gender'].touched && form.controls['gender'].invalid">
+                        Gender is required field.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="20">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput formControlName="phone">
+                    <mat-error *ngIf="form.controls['phone'].touched && form.controls['phone'].invalid">
+                        Phone number is required field.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="20">
+                    <mat-label>E-mail Address</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error *ngIf="form.controls['email'].touched && form.controls['email'].invalid">
+                        Email Address is required field.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="20">
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="role">
+                        <ng-container *ngIf="roles$|async as roles">
+                            <mat-option *ngFor="let role of roles" [value]="role.roleName">
+                                {{role.description}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls['role'].touched && form.controls['role'].invalid">
+                        Role is required field.
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+            <div fxFlex="100" fxLayoutAlign="end" fxLayoutGap="10px">
+                <button *ngIf="!(updateMode$|async)" mat-raised-button type="button" color="primary" (click)="onSave()"
+                    [disabled]="form.invalid">
+                    <icon-spinner *ngIf="isSubmitting$|async"></icon-spinner>
+                    {{ (isSubmitting$|async) ? 'Saving...' : 'Save Manager'}}
+                </button>
+                <ng-container *ngIf="(updateMode$|async)">
+                    <button mat-raised-button type="button" (click)="onUpdate()" color="primary"
+                        [disabled]="form.invalid">
+                        <icon-spinner *ngIf="isSubmitting$|async"></icon-spinner>
+                        {{ (isSubmitting$|async) ? 'Updating...' : 'Update Manager'}}
+                    </button>
+                    <button mat-button type="button" (click)="onCancel()" color="warn">
+                        Cancel
+                    </button>
+                </ng-container>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

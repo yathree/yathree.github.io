@@ -1,0 +1,9 @@
+<div fxLayout="column" fxLayoutGap="2em">
+    <header-card title="General Settings"></header-card>
+    <p>Here are links for general settings.</p>
+</div>
+
+<div class="card-container" fxLayoutGap="1em">
+    <menu-card *ngFor="let menu of menus" [title]="menu.title" [icon]="menu.icon" [routerLink]="menu.url">
+    </menu-card>
+</div>

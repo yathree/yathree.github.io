@@ -1,0 +1,69 @@
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="schoolForm" fxLayoutAlign="space-between center" fxLayoutGap="1em">
+            <mat-form-field fxFlex="100">
+                <mat-label>School Name</mat-label>
+                <input matInput formControlName="name" placeholder="Enter School Nmae" />
+                <mat-error *ngIf="controls['name'].touched && controls['name'].hasError('required')">
+                    School name is required field.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="100">
+                <mat-label>School Location</mat-label>
+                <input matInput formControlName="location" placeholder="Enter School Address" />
+                <mat-error *ngIf="controls['location'].touched && controls['location'].invalid">
+                    School location is required field.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="100">
+                <mat-label>School Contact</mat-label>
+                <input matInput formControlName="contact" placeholder="Enter School Contact" />
+                <mat-error *ngIf="controls['contact'].touched && controls['contact'].invalid">
+                    School contact is required field.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="100">
+                <mat-label>School Manager</mat-label>
+                <mat-select formControlName="manager">
+                    <ng-container *ngIf="managers$|async as managers">
+                        <mat-option [value]="manager" *ngFor="let manager of managers">
+                            {{manager.fname + ' ' + manager.lname}}
+                        </mat-option>
+                    </ng-container>
+                </mat-select>
+                <mat-error *ngIf="controls['contact'].touched && controls['contact'].invalid">
+                    School contact is required field.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="15">
+                <mat-label>Practical Day</mat-label>
+                <mat-select formControlName="practicalDay">
+                  <mat-option value="Monday">Monday</mat-option>
+                  <mat-option value="Tuesday">Tuesday</mat-option>
+                  <mat-option value="Wednesday">Wednesday</mat-option>
+                  <mat-option value="Thursdat">Thursdat</mat-option>
+                  <mat-option value="Friday">Friday</mat-option>
+                </mat-select>
+                <mat-error *ngIf="controls['practicalDay'].touched && controls['practicalDay'].invalid">
+                  Gender is required field.
+                </mat-error>
+              </mat-form-field>
+
+            <div fxFlex="100" fxLayoutAlign="end">
+                <div *ngIf="isUpdateMode$|async">
+                    <button type="button" mat-raised-button (click)="updateSchool()" [disabled]="schoolForm.invalid"
+                        color="primary">
+                        <icon-spinner *ngIf="isSubmitting$|async"></icon-spinner>
+                        {{(isSubmitting$|async) ? 'Please wait...' : 'Update'}}
+                    </button>
+                    <button mat-button color="warn" (click)="cancelEdit()">Cancel</button>
+                </div>
+                <button *ngIf="!(isUpdateMode$|async)" type="button" mat-raised-button (click)="addSchool()"
+                    [disabled]="schoolForm.invalid" color="primary">
+                    <icon-spinner *ngIf="isSubmitting$|async"></icon-spinner>
+                    {{(isSubmitting$|async) ? 'Please wait...' : 'Save'}}
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

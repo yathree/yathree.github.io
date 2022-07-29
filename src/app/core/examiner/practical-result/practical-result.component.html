@@ -1,0 +1,14 @@
+<header-card title="Students Practical Results"></header-card>
+
+<mat-button-toggle-group color="primary">
+  <mat-button-toggle  (click)="onChange('pre')">Pre Check</mat-button-toggle>
+  <mat-button-toggle  (click)="onChange('yard')">Yard Check</mat-button-toggle>
+  <mat-button-toggle (click)="onChange('road')">Road Check</mat-button-toggle>
+</mat-button-toggle-group>
+
+
+<app-pre-check-result *ngIf="pre"></app-pre-check-result>
+
+<app-yard-check-result *ngIf="yard"></app-yard-check-result>
+
+<app-road-check-result *ngIf="road"></app-road-check-result>

@@ -1,0 +1,71 @@
+
+<mat-card fxLayoutGap="0.5rem" fxFlex="50" *ngFor="let ccinfo of Cc$|async">
+    <div class="students">
+        <div class="student-info container">
+            <strong style="color: red;">No: {{ccinfo['cn']}}</strong>
+            <div class="logo">
+                <img src="assets/images/smz_logo.png" alt="">
+            </div>
+            <h2>ZANZIBAR ROAD TRANSPORT AND SAFETY AUTHORITY</h2>
+            <h3>THE ROAD TRANSPORT ACT 2003</h3>
+            <h4>(Under Section 95, 113 and Regulation 9(1))</h4>
+            <h2>STATEMENT OF RESULT OF DRIVING TEST</h2>
+            <p>this certify that Mr / Mrs / Miss <strong>{{ccinfo['name']}} </strong> 
+                holder of linner drivers license number <strong>{{ccinfo['learnerNo']}} </strong>
+                has undergone a driving test of class
+                <strong>{{ccinfo['className']}}</strong> vehicle on
+                  ........................ and attaining the following perfomance:-</p>
+            
+                  <div>
+                    <p>RENEWALS</p>
+                    <table border="2" width="100%">
+                        <tr>
+                            <th>ACTIVITY</th>
+                            <th>MARKS</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Theory :</strong>
+                                <ul>
+                                    <li>Road Sign</li>
+                                    <li>Traffic Laws</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <p>{{ccinfo['theoryMarks1']}}</p>
+                                <p>{{ccinfo['theoryMarks2']}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Practical :</strong>
+                                <ul>
+                                    <li>Pre-trip inspection</li>
+                                    <li>Yard test</li>
+                                    <li>Road test</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <p>{{ccinfo['preMarks']}}</p>
+                                <p>{{ccinfo['yardMarks']}}</p>
+                                <p>{{ccinfo['roadMarks']}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>Grade</th>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                    <br>
+                    <p>...............................................</p>
+                    <p><strong >Certifying Officer</strong></p>
+                    <p><span>.................................................</span></p>
+                    <p><strong >Date</strong></p>
+        </div>
+</div>
+</mat-card>

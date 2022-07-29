@@ -1,0 +1,15 @@
+<!-- Navbar -->
+<app-navbar (toggleSidenav)="opened = !opened"></app-navbar>
+<mat-sidenav-container>
+  <mat-sidenav [opened]="opened" [mode]="isOver ? 'over' : 'side'" (openedChange)="onOpenedChange($event)">
+    <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+      <div class="image" style="background-image: url(assets/images/logo.jpg)"></div>
+      <h1>{{ logoTitle }}</h1>
+    </div>
+    <!-- Side Menus -->
+    <app-side-menu></app-side-menu>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,22 @@
+<header-card title="My Driving Schools"></header-card>
+
+<ng-container *ngIf="(schools$|async) as state" [ngSwitch]="state.dataState">
+    <mat-card *ngSwitchCase="DataState.LOADED" style="margin-top: 10px; margin-bottom: 30px; padding: 10px">
+        <mat-card-content>
+            <ngx-datatable [rows]="state.data" class="material" rowHeight="auto" [headerHeight]="40"
+                [columnMode]="'force'" [footerHeight]="40">
+                <ngx-datatable-column [maxWidth]="100" name="ID"></ngx-datatable-column>
+                <ngx-datatable-column name="Name"></ngx-datatable-column>
+                <ngx-datatable-column name="Contact"></ngx-datatable-column>
+                <ngx-datatable-column name="Location"></ngx-datatable-column>
+                <ngx-datatable-column name="Valid Until">
+                    <ng-template ngx-datatable-cell-template>
+                        {{'12-12-2024'}}
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </mat-card-content>
+    </mat-card>
+
+    <loading-spinner *ngSwitchCase="DataState.LOADING"></loading-spinner>
+</ng-container>
